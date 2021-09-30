@@ -1,0 +1,134 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<style>
+    #borderHeader, #borderRow, #borderCell{
+        border: 1px solid black;
+        padding:10px;
+    }
+
+    #userTable {
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 10px;
+    }
+</style>
+
+<div id="userTableView" class="text-center">
+    <table id="userTable" align="center">
+        <thead>
+            <tr id="borderRow">
+                <th id="borderHeader">First Name</th>
+                <th id="borderHeader">Last Name</th>
+                <th id="borderHeader">Address</th>
+                <th id="borderHeader">City</th>
+                <th id="borderHeader">State</th>
+                <th id="borderHeader">Zip</th>
+                <th id="borderHeader">Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserModel item in Model.UserList)
+            {
+            <tr>
+                <td id="borderCell">
+                    @item.FirstName
+                </td>
+                <td id="borderCell">
+                    @item.LastName
+                </td>
+                <td id="borderCell">
+                    @item.Address
+                </td>
+                <td id="borderCell">
+                    @item.City
+                </td>
+                <td id="borderCell">
+                    @item.State
+                </td>
+                <td id="borderCell">
+                    @item.Zip
+                </td>
+                <td id="borderCell">
+                    @item.IsActive
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    <h1 class="display-4">Submit New User</h1>
+    <form method="post">
+        <table align="center">
+            <tr>
+                <td>
+                    <label for="FirstName">First Name:</label>
+                </td>
+                <td>
+                    <input type="text" name="FirstName" value="" />
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label for="LastName">Last Name:</label>
+                </td>
+                <td>
+                    <input type="text" name="LastName" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Address">Address:</label>
+                </td>
+                <td>
+                    <input type="text" name="Address" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="City">City:</label>
+                </td>
+                <td>
+                    <input type="text" name="City" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="State">State:</label>
+                </td>
+                <td align="left">
+                    @Html.DropDownListFor(model => model.State, new SelectList(Model.StateDic, "Key", "Value"), "Choose... ")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Zip">Zip:</label>
+                </td>
+                <td>
+                    <input type="text" name="Zip" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="IsActive">Active:</label>
+                <td>
+                    <input asp-for="IsActive" />
+                    @*<input type="hidden" name="IsActive" value="false">
+                        <input type="checkbox" name="IsActive" id="IsActive" value="checked" />*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>&nbsp;</label>
+                </td>
+                <td>
+                    <input type="submit" value="Submit" asp-page-handler="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
